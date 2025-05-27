@@ -6,12 +6,19 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "db:connect": "node -r dotenv/config -e 'await require(\"./app/db/db.server\").ConnectToDatabase(); console.log(\"Database connected\");'"
   },
   "dependencies": {
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
+    "@remix-run/node": "^2.16.7",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "google-auth-library": "^9.15.1",
     "isbot": "^5.1.27",
+    "jose": "^6.0.11",
+    "mongoose": "^8.15.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.5.3"
@@ -22,6 +29,7 @@
     "@types/node": "^20",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
+    "react-router-devtools": "^5.0.6",
     "tailwindcss": "^4.1.4",
     "typescript": "^5.8.3",
     "vite": "^6.3.3",

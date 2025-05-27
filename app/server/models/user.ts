@@ -1,0 +1,123 @@
+import mongoose from "mongoose";
+import { ROLE_LIST } from "../configs/role";
+
+const UserSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
+
+    passwordHash: {
+      type: String,
+      required: [true, "Password is required"],
+      select: false,
+    },
+
+    roles: {
+      type: [Number],
+      enum: [ROLE_LIST.Admin, ROLE_LIST.artist, ROLE_LIST.buyer],
+      default: [ROLE_LIST.buyer],
+      required: true,
+    },
+
+    activeRole: {
+      type: Number,
+      enum: [ROLE_LIST.Admin, ROLE_LIST.artist, ROLE_LIST.buyer],
+      default: ROLE_LIST.buyer,
+    },
+
+    refreshToken: { type: String, select: false },
+
+    profile: {
+      name: { type: String, required: true, trim: true },
+      bio: {
+        type: String,
+        trim: true,
+        maxlength: 500,
+        default: "an artist bio is an insight to the soul of the artwork",
+      },
+      avatar: { type: String, default: "/default-avatar.jpg" },
+      location: {
+        city: { type: String, trim: true },
+        country: { type: String, trim: true },
+      },
+    },
+
+    artistProfile: { type: mongoose.Schema.Types.ObjectId, ref: "Artist", select: false },
+
+    buyerProfile: {
+      shippingAddresses: [
+        {
+          name: { type: String, trim: true, required: true },
+          street: { type: String, trim: true, required: true },
+          city: { type: String, trim: true, required: true },
+          state: { type: String, trim: true, required: true },
+          zip: { type: String, trim: true, required: true },
+          country: { type: String, trim: true, required: true },
+          isDefault: { type: Boolean, default: false },
+        },
+      ],
+      paymentMethods: [
+        {
+          type: {
+            type: String,
+            enum: ["credit_card", "stripe", "bank_transfer"],
+            required: true,
+          },
+          details: mongoose.Schema.Types.Mixed,
+        },
+      ],
+    },
+
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+
+    signupDate: { type: Date, default: Date.now },
+    lastActive: Date,
+    isVerified: { type: Boolean, default: false },
+
+    savedItems: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        savedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+  },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+// UserSchema.pre("validate", function (next) {
+//   if (this.roles.includes(ROLE_LIST.artist) && !this.artistProfile?.statement) {
+//     this.invalidate("artistProfile.statement", "Artist statement is required for artists");
+//   }
+//   next();
+// });
+
+UserSchema.methods.toJSONSanitized = function () {
+  const obj = this.toObject({ virtuals: true });
+  if (obj.activeRole === ROLE_LIST.buyer) {
+    delete obj.artistProfile;
+  }
+  return obj;
+};
+
+export type UserType = mongoose.InferSchemaType<typeof UserSchema> & { _id: string };
+
+const User = mongoose.model("User", UserSchema);
+
+export default User;
