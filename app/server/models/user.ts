@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { ROLE_LIST } from "../configs/role";
+import type { OrderType } from "./order";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -110,13 +111,23 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.methods.toJSONSanitized = function () {
   const obj = this.toObject({ virtuals: true });
-  if (obj.activeRole === ROLE_LIST.buyer) {
+  if (obj.activeRole && obj.roles === ROLE_LIST.buyer) {
     delete obj.artistProfile;
   }
   return obj;
 };
 
-export type UserType = mongoose.InferSchemaType<typeof UserSchema> & { _id: string };
+UserSchema.virtual("orders", {
+  ref: "Order",
+  localField: "_id",
+  foreignField: "buyer",
+  options: { sort: { purchasedAt: -1 } }, // newest first
+});
+
+export type UserType = mongoose.InferSchemaType<typeof UserSchema> & {
+  _id: string;
+  orders?: OrderType[];
+};
 
 const User = mongoose.model("User", UserSchema);
 

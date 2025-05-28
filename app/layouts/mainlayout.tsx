@@ -5,6 +5,8 @@ import { getSession } from "~/utils/session";
 import User from "~/server/models/user";
 import { ConnectToDatabase } from "~/db/db.server";
 import type { UserType } from "~/server/models/user";
+import { getUser } from "~/queries/get-user";
+import { getCached } from "~/utils/cache.server";
 
 interface MainLayoutLoaderData {
   user: UserType | null;
@@ -12,19 +14,17 @@ interface MainLayoutLoaderData {
 
 export async function loader({ request }: Route.LoaderArgs) {
   await ConnectToDatabase();
+
+  const cachedUser = getCached<{ id: string; categoryName: string }[]>("user");
+
+  if (cachedUser) {
+    return {
+      user: cachedUser,
+    };
+  }
   const session = await getSession(request);
 
-  let user = null;
-
-  if (session?._id) {
-    const userData = await User.findById(session._id).lean();
-    if (userData) {
-      user = {
-        ...userData,
-        _id: userData._id.toString(),
-      };
-    }
-  }
+  const user = await getUser(session?._id || "");
 
   return { user };
 }
@@ -33,7 +33,7 @@ export default function MainLayout({ loaderData }: Route.ComponentProps) {
   const { user } = useLoaderData<MainLayoutLoaderData>();
 
   return (
-    <section className="">
+    <section className="container mx-auto w-[90vw]">
       <Navbar user={user} />
 
       <div className="w-full">

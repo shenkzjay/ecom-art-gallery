@@ -4,7 +4,7 @@ import { Document } from "mongoose";
 interface ProductDoc extends Document {
   product_title: string;
   product_about: string;
-  product_image: string;
+  product_image: string[];
   product_date: Date;
   medium: string;
   style?: string;
@@ -21,7 +21,7 @@ interface ProductDoc extends Document {
   updatedAt: Date;
 }
 
-const ProductSchema = new mongoose.Schema<ProductDoc>({
+const ProductSchema = new mongoose.Schema({
   product_title: {
     type: String,
     required: true,
@@ -33,7 +33,7 @@ const ProductSchema = new mongoose.Schema<ProductDoc>({
   },
 
   product_image: {
-    type: String,
+    type: [String],
     required: true,
   },
 
@@ -72,10 +72,12 @@ const ProductSchema = new mongoose.Schema<ProductDoc>({
 
   product_author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Artist",
+    ref: "User",
     required: true,
   },
 });
+
+export type ProductType = mongoose.InferSchemaType<typeof ProductSchema> & { _id: string };
 
 const Product = mongoose.model("Product", ProductSchema);
 

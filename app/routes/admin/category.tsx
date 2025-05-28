@@ -8,6 +8,7 @@ import { useState, useRef, useEffect } from "react";
 import { Modals } from "~/components/modals";
 import { SearchIcon } from "public/icons/search";
 import { getSession } from "~/utils/session";
+import { getAllCategories } from "~/queries/get-all-cat";
 
 export async function action({ request }: Route.ActionArgs) {
   await ConnectToDatabase();
@@ -96,23 +97,13 @@ export async function loader({ request }: Route.LoaderArgs) {
   }
 
   try {
-    const allCategories = await Category.find({});
-
-    if (!allCategories) {
-      throw new Response("Categories Not Found on db", { status: 404 });
-    }
-
-    const serialized = allCategories.map((cat) => ({
-      id: cat._id.toString(),
-      categoryName: cat.categoryName,
-    }));
-
+    const serialized = await getAllCategories();
     setInCached("categories", serialized);
 
     return { allCategories: serialized };
   } catch (error: any) {
     console.error(`error trying to retrieve categories: ${error}`);
-    throw new Response("Not Found", { status: 404 });
+    throw new Error("Not Found");
   }
 }
 

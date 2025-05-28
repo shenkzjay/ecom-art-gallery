@@ -11,7 +11,9 @@ export default [
   layout("layouts/mainlayout.tsx", [
     index("routes/home.tsx"),
     route("artist", "routes/artists.tsx"),
-    route("logout", "routes/logout.tsx"),
+    route("logout", "routes/auth/logout.tsx"),
+    route("artwork", "routes/artists/artwork.tsx"),
+    route("artist/upload-artwork", "routes/artists/upload-artwork.tsx"),
   ]),
 
   route("login", "routes/auth/login.tsx"),

@@ -10,9 +10,11 @@
     "db:connect": "node -r dotenv/config -e 'await require(\"./app/db/db.server\").ConnectToDatabase(); console.log(\"Database connected\");'"
   },
   "dependencies": {
+    "@mjackson/form-data-parser": "^0.7.0",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "@remix-run/node": "^2.16.7",
+    "@vercel/blob": "^1.1.1",
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.5.0",
     "google-auth-library": "^9.15.1",

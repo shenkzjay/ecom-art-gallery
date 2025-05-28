@@ -78,12 +78,12 @@ export function Navbar({ user }: NavbarProps) {
                 >
                   Profile
                 </a>
-                <a
-                  href="/profile"
+                <NavLink
+                  to="/artwork"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Artwork
-                </a>
+                </NavLink>
                 <a
                   href="/settings"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -111,12 +111,7 @@ export function Navbar({ user }: NavbarProps) {
                 >
                   Profile
                 </a>
-                <a
-                  href="/profile"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Artwork
-                </a>
+
                 <a
                   href="/settings"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

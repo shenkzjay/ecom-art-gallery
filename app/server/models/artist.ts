@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const ArtistSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   statement: {
     type: String,
     trim: true,
@@ -16,6 +21,8 @@ const ArtistSchema = new mongoose.Schema({
     twitter: { type: String, trim: true },
   },
 });
+
+export type ArtistType = mongoose.InferSchemaType<typeof ArtistSchema> & { _id: string };
 
 const Artist = mongoose.model("Artist", ArtistSchema);
 

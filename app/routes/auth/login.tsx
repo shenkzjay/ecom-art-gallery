@@ -5,6 +5,7 @@ import type { Route } from "./+types/login";
 import User from "~/server/models/user";
 import { redirect } from "react-router";
 import { ConnectToDatabase } from "~/db/db.server";
+import { clearCache } from "~/utils/cache.server";
 
 export async function action({ request }: Route.ActionArgs) {
   await ConnectToDatabase();
@@ -43,6 +44,8 @@ export async function action({ request }: Route.ActionArgs) {
       success: false,
     };
   }
+
+  await clearCache("user");
 
   const userObj = user.toObject();
 
