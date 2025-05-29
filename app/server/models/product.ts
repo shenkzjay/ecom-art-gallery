@@ -24,6 +24,12 @@ interface ProductDoc extends Document {
 }
 
 const ProductSchema = new mongoose.Schema({
+  isSold: {
+    type: Boolean,
+    default: false,
+    index: true,
+  },
+
   product_title: {
     type: String,
     required: true,
@@ -76,6 +82,32 @@ const ProductSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+  },
+
+  saleDetails: {
+    type: [
+      {
+        buyer: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        orderId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Order",
+        },
+        soldAt: {
+          type: Date,
+        },
+        priceSoldAt: {
+          type: Number,
+        },
+        shippingStatus: {
+          type: String,
+          enum: ["processing", "shipped", "delivered", "cancelled"],
+          default: "processing",
+        },
+      },
+    ],
   },
 });
 

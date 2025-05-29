@@ -50,30 +50,6 @@ const UserSchema = new mongoose.Schema(
 
     artistProfile: { type: mongoose.Schema.Types.ObjectId, ref: "Artist", select: false },
 
-    buyerProfile: {
-      shippingAddresses: [
-        {
-          name: { type: String, trim: true, required: true },
-          street: { type: String, trim: true, required: true },
-          city: { type: String, trim: true, required: true },
-          state: { type: String, trim: true, required: true },
-          zip: { type: String, trim: true, required: true },
-          country: { type: String, trim: true, required: true },
-          isDefault: { type: Boolean, default: false },
-        },
-      ],
-      paymentMethods: [
-        {
-          type: {
-            type: String,
-            enum: ["credit_card", "stripe", "bank_transfer"],
-            required: true,
-          },
-          details: mongoose.Schema.Types.Mixed,
-        },
-      ],
-    },
-
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 

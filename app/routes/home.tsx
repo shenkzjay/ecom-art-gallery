@@ -9,6 +9,7 @@ import { useFetcher } from "react-router";
 import User from "~/server/models/user";
 import mongoose from "mongoose";
 import { useEffect, useState } from "react";
+import { UpArrowheadIcon } from "public/icons/up-arrowhead";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Home page" }, { name: "description", content: "Artwork homepage!" }];
@@ -121,11 +122,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
   return (
     <main>
-      <section className="mt-12">
-        <div className="flex gap-6 items-center">
-          <div className="w-1/2 flex flex-col gap-10">
-            <div>
-              <h2 className="w-[80%] text-6xl font-bold">
+      <section className="mt-12 ">
+        <div className="flex gap-6 items-center bg-[url('/images/hero.png')] bg-center w-full h-[500px] relative  ">
+          <div className="h-full w-full bg-black/40 absolute top-0"></div>
+          <div className="w-full flex flex-col gap-10  z-10  items-center justify-center">
+            <div className="flex items-center  justify-center">
+              <h2 className="w-[70%] text-6xl font-bold text-white text-center">
                 Explore curated collection of original art
               </h2>
             </div>
@@ -133,41 +135,147 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               <button className="py-3 px-6 rounded-full bg-blue-500 text-white">Start tour</button>
             </div>
           </div>
-          <div className="w-1/2">
-            <img src="/images/hero.png" />
-          </div>
+          {/* <div className="w-1/2"> <img src="/images/hero.png" /> </div> */}
         </div>
       </section>
-      <section className="mt-[150px]">
-        <div>
-          <h3 className="text-4xl mb-12">Explore works from artists</h3>
+
+      {/* featured art type section */}
+      <section className="mt-[150px] container mx-auto grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8">
+        <article className="grid">
+          <figure className="grid gap-6 grid-rows-subgrid row-span-3">
+            <figcaption className="flex justify-between items-center mb">
+              <h3 className="text-2xl">Emerging art</h3>
+              <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
+                <UpArrowheadIcon />
+              </span>
+            </figcaption>
+
+            <img
+              src="/images/art5.webp"
+              width={400}
+              height={400}
+              className="object-cover w-[400px] h-[200px]"
+              alt=""
+            />
+            <p className=" text-slate-500  ">
+              In the art world, the word “emerging” is used to describe young artists whose careers
+              are on the rise, but also includes artists who are relatively under-recognized but for
+              the most part
+            </p>
+          </figure>
+        </article>
+
+        <article className="grid">
+          <figure className="grid grid-rows-subgrid row-span-3 gap-6">
+            <figcaption className="flex justify-between items-center mb">
+              <h3 className="text-2xl">Contemporary art</h3>
+              <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
+                <UpArrowheadIcon />
+              </span>
+            </figcaption>
+
+            <img
+              src="/images/art2.webp"
+              width={400}
+              height={400}
+              className="object-cover w-[400px] h-[200px]"
+              alt=""
+            />
+            <p className=" text-slate-500  ">
+              Spanning from 1970 to the present day, the contemporary period of art history
+              represents the most diverse and widely-collected era of artistic production
+            </p>
+          </figure>
+        </article>
+
+        <article className="grid">
+          <figure className="grid gap-6 grid-rows-subgrid row-span-3">
+            <figcaption className="flex justify-between items-center mb">
+              <h3 className="text-2xl">Modern art</h3>
+              <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
+                <UpArrowheadIcon />
+              </span>
+            </figcaption>
+
+            <img
+              src="/images/art10.webp"
+              width={400}
+              height={400}
+              className="object-cover w-[400px] h-[200px]"
+              alt=""
+            />
+            <p className=" text-slate-500  ">
+              All works / Movement The Impressionists radically challenged the conventions of
+              artmaking, rejecting the established academic style in favor of loose brushstrokes to
+              capture atmospheric landscapes.
+            </p>
+          </figure>
+        </article>
+      </section>
+
+      <section className="flex mt-[150px]">
+        <div className="w-1/2 flex justify-center items-center flex-col bg-[#f7f7f7]">
+          <div className=" w-1/2 text-balance text-center grid gap-6 ">
+            <h3 className="text-4xl ">Welcome to the Art and History Museum, Ozeunma</h3>
+            <p className="text-sm text-slate-400">
+              Not only the outstanding quality of the collections, but also our high level of
+              acitvity in the areas of reaserch, exhibitions and education guarantee the Ozeumma
+              prominent position in the international museums landscape
+            </p>
+          </div>
         </div>
-        <ul className="flex flex-row gap-4">
-          {allProducts.map((product) => {
+
+        <div className="w-1/2 relative">
+          <img
+            src="/images/sculp.png"
+            width={400}
+            height={400}
+            alt="picture of white sculpture sitting in a museum"
+            className="w-full h-full"
+          />
+          <span className="w-full h-full bg-black/20 absolute top-0"></span>
+        </div>
+      </section>
+
+      {/* art collection */}
+      <section className="mt-[150px] container mx-auto w-[90vw]">
+        <div>
+          <h3 className="text-4xl mb-12">Collections</h3>
+        </div>
+        <ul className="columns-4 gap-4 space-y-4">
+          {allProducts.map((product, index) => {
             const isSaved = savedProductIds?.includes(product.id);
             return (
-              <li key={product.id} className="flex flex-row">
-                <div>
-                  <Link to={`/artwork/${product.id}`}>
-                    <div className="w-[250px] mb-2">
-                      <img
-                        src={product.product_image[0]}
-                        width={300}
-                        height={300}
-                        className="w-full h-full"
-                      />
-                    </div>
-                  </Link>
-
-                  <div className="flex justify-between">
-                    <div>
-                      <p className="capitalize">{product.product_title}</p>
-                      <p className="text-gray-500 italic text-sm">{product.product_about}</p>
-                      <p className="font-bold">{`$${product.product_price.toLocaleString()}`}</p>
-                    </div>
+              <li
+                key={index}
+                className="break-inside-avoid mb-4 bg-white shadow rounded-lg overflow-hidden"
+              >
+                <Link to={`/artwork/${product.id}`}>
+                  <div className="mb-2">
+                    <img
+                      src={product.product_image[0]}
+                      width={300}
+                      height={300}
+                      className="w-full h-auto object-cover"
+                    />
                   </div>
-                  <div>
-                    <SavedItems productId={product.id} isSaved={isSaved} />
+                </Link>
+
+                <div className="p-4">
+                  <div className="flex justify-between items-start">
+                    <div className="w-full">
+                      <p className="capitalize font-semibold text-lg mb-1">
+                        {product.product_title}
+                      </p>
+                      <p className="text-gray-500 italic text-sm text-wrap mb-2">
+                        {product.product_about.slice(0, 100)}
+                      </p>
+                      <p className="font-bold text-lg">${product.product_price.toLocaleString()}</p>
+                    </div>
+
+                    <div className="mt-2">
+                      <SavedItems productId={product.id} isSaved={isSaved} />
+                    </div>
                   </div>
                 </div>
               </li>
@@ -232,13 +340,13 @@ export const SavedItems = ({
       ${
         isOptimisticSaved
           ? "bg-red-500 hover:bg-red-600 text-white"
-          : "bg-blue-500 hover:bg-blue-600 text-white"
+          : "bg-slate-50 hover:bg-slate-200 text-slate-500"
       }
       ${isLoading ? "animate-pulse" : ""}
     `}
     >
       {isLoading ? (
-        <span className="flex items-center gap-2">
+        <span className="flex items-center text-xs gap-2">
           <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
@@ -260,9 +368,9 @@ export const SavedItems = ({
       ) : (
         <>
           {isOptimisticSaved ? (
-            <span className="flex items-center gap-2">❤️ Saved</span>
+            <span className="flex items-center text-xs gap-2">❤️ Saved</span>
           ) : (
-            <span className="flex items-center gap-2">🤍 Save</span>
+            <span className="flex items-center text-xs gap-2">🤍 Save</span>
           )}
         </>
       )}

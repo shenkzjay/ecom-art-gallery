@@ -33,7 +33,7 @@ export default function MainLayout({ loaderData }: Route.ComponentProps) {
   const { user } = useLoaderData<MainLayoutLoaderData>();
 
   return (
-    <section className="container mx-auto w-[90vw]">
+    <section className="relative">
       <Navbar user={user} />
 
       <div className="w-full">

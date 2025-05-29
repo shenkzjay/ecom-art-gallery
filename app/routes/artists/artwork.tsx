@@ -4,27 +4,35 @@ import { TelegramArrow } from "public/icons/telegram-arrow";
 import { Link } from "react-router";
 import type { Route } from "./+types/artwork";
 import { ConnectToDatabase } from "~/db/db.server";
-import { getCached, setInCached } from "~/utils/cache.server";
+// import { getCached, setInCached } from "~/utils/cache.server";
 import type { ProductType } from "~/server/models/product";
 import { getAllProducts } from "~/queries/get-product";
+import { getSession } from "~/utils/session";
+import { getUser } from "~/queries/get-user";
 
 export async function loader({ request }: Route.LoaderArgs) {
   await ConnectToDatabase();
 
-  const cachedProduct = getCached<ProductType[]>("product");
+  // const cachedProduct = getCached<ProductType[]>("product");
 
-  if (cachedProduct) {
-    return {
-      allProducts: cachedProduct,
-    };
-  }
+  // if (cachedProduct) {
+  //   return {
+  //     allProducts: cachedProduct,
+  //   };
+  // }
+
+  const session = await getSession(request);
+
+  const sessionId = session?._id;
+
+  const user = await getUser(sessionId || "");
 
   try {
     const products = await getAllProducts();
 
-    setInCached("product", products);
+    // setInCached("product", products);
 
-    return { allProducts: products };
+    return { allProducts: products, user };
   } catch (error) {
     console.error(`error trying to retrieve products: ${error}`);
     throw new Error("products Not Found");
@@ -32,20 +40,24 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export default function artwork({ loaderData }: Route.ComponentProps) {
-  const { allProducts } = loaderData;
+  const { allProducts, user } = loaderData;
 
-  console.log({ allProducts });
+  const filteredProduct = allProducts.filter(
+    (product, _) => product.product_author.email === user?.email
+  );
+
+  console.log({ allProducts, user, filteredProduct });
 
   return (
     <section>
-      <div className="flex justify-between mt-12 bg-[#f7f7f7] p-8 rounded-2xl">
+      <div className="flex justify-between mt-12 container mx-auto  rounded-2xl">
         <div className="flex items-center gap-6 ">
           <div className="border rounded-full flex w-24 h-24 justify-center items-center ">
             <span className="flex">Avatar</span>
           </div>
           <div>
-            <p className="text-2xl ">Olajide seun</p>
-            <p className="text-slate-500">This is my bio shit</p>
+            <p className="text-2xl ">{user?.profile?.name}</p>
+            <p className="text-slate-500">{user?.profile?.bio}</p>
           </div>
         </div>
         <div className="flex gap-4">
@@ -54,7 +66,7 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
         </div>
       </div>
       <div>
-        <div className="flex  rounded-xl my-12">
+        <div className="flex  rounded-xl my-12 bg-[#f7f7f7]">
           <div className="w-1/2 min-h-full p-6 flex flex-col justify-center items-center gap-6">
             <div className="flex flex-col mt-0 ">
               <ul className="flex flex-col gap-6 ">
@@ -93,18 +105,18 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
               src="images/art9.webp"
               width={600}
               height={600}
-              className="rounded-r-xl"
+              className=" w-full"
               alt="canvas painting of a white woman in the 80s sitting down"
             />
           </div>
         </div>
       </div>
 
-      <section>
+      <section className="container mx-auto w-[90vw]">
         <h3 className="text-2xl font-bold my-12">Collections</h3>
         <div className="flex gap-6 flex-wrap">
-          {allProducts.map((product) => (
-            <div key={product._id}>
+          {filteredProduct.map((product, index) => (
+            <div key={`${product._id}-${index}`}>
               <div>
                 <img src={product.product_image[0]} width={300} height={300} />
                 <p>{product.product_title}</p>

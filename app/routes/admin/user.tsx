@@ -95,13 +95,19 @@ export default function CreateUser() {
           <label htmlFor="username" className="">
             Artist
           </label>
-          <input type="radio" name="role" id="Artist" value={ROLE_LIST.artist} required />
+          <input type="radio" name="role" id="Artist" value={ROLE_LIST.artist} />
         </div>
         <div>
           <label htmlFor="admin" className="">
             Admin
           </label>
-          <input type="radio" name="role" id="admin" value={ROLE_LIST.Admin} required />
+          <input type="radio" name="role" id="admin" value={ROLE_LIST.Admin} />
+        </div>
+        <div>
+          <label htmlFor="admin" className="">
+            user
+          </label>
+          <input type="radio" name="role" id="buyer" value={ROLE_LIST.buyer} />
         </div>
       </div>
 

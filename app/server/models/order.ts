@@ -38,6 +38,17 @@ const OrderSchema = new mongoose.Schema(
       default: "pending",
     },
 
+    paymentMethods: [
+      {
+        type: {
+          type: String,
+          enum: ["credit_card", "stripe", "bank_transfer"],
+          required: true,
+        },
+        details: mongoose.Schema.Types.Mixed,
+      },
+    ],
+
     shippingStatus: {
       type: String,
       enum: ["processing", "shipped", "delivered", "cancelled"],

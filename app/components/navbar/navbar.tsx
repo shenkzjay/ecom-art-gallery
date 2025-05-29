@@ -18,7 +18,7 @@ export function Navbar({ user }: NavbarProps) {
   const roleName = getRoleName(role);
 
   return (
-    <nav className="flex flex-row justify-between">
+    <nav className="flex flex-row justify-between container mx-auto w-[90vw] z-10 relative">
       <ul className="flex flex-row gap-4">
         <li>
           <Link to="/">Home</Link>
@@ -48,12 +48,12 @@ export function Navbar({ user }: NavbarProps) {
                   Profile
                 </a>
                 <div>
-                  <Link
-                    to="/profile"
+                  <NavLink
+                    to="/artist"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
-                    Dashboard
-                  </Link>
+                    Artwork
+                  </NavLink>
                   <p></p>
                 </div>
                 <a
@@ -84,7 +84,7 @@ export function Navbar({ user }: NavbarProps) {
                   Profile
                 </a>
                 <NavLink
-                  to="/artwork"
+                  to="/artist"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Artwork
@@ -132,6 +132,27 @@ export function Navbar({ user }: NavbarProps) {
                 >
                   Settings
                 </a>
+                <a
+                  href="/settings"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Order
+                </a>
+                <div className="flex justify-between items-center px-4 hover:bg-gray-100">
+                  <a
+                    href="/settings"
+                    className="block py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Saved
+                  </a>
+                  {user.savedItems.length > 0 && (
+                    <span className="w-5 h-5 bg-orange-200 rounded-full flex items-center justify-center">
+                      <p className="text-[10px] text-orange-600 font-bold ">
+                        {user.savedItems.length || ""}
+                      </p>
+                    </span>
+                  )}
+                </div>
 
                 <Form method="post" action="/logout">
                   <button
