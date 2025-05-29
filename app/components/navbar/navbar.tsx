@@ -20,7 +20,9 @@ export function Navbar({ user }: NavbarProps) {
   return (
     <nav className="flex flex-row justify-between">
       <ul className="flex flex-row gap-4">
-        <li>Home</li>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
         <li>
           <Link to="/artist">Artist</Link>
         </li>
@@ -45,12 +47,15 @@ export function Navbar({ user }: NavbarProps) {
                 >
                   Profile
                 </a>
-                <a
-                  href="/profile"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Dashboard
-                </a>
+                <div>
+                  <Link
+                    to="/profile"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Dashboard
+                  </Link>
+                  <p></p>
+                </div>
                 <a
                   href="/settings"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -84,12 +89,21 @@ export function Navbar({ user }: NavbarProps) {
                 >
                   Artwork
                 </NavLink>
-                <a
-                  href="/settings"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                >
-                  Settings
-                </a>
+                <div className="flex justify-between items-center px-4">
+                  <a
+                    href="/settings"
+                    className="block py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    Saved
+                  </a>
+                  {user.savedItems.length > 0 && (
+                    <span className="w-5 h-5 bg-orange-200 rounded-full flex items-center justify-center">
+                      <p className="text-[10px] text-orange-600 font-bold ">
+                        {user.savedItems.length || ""}
+                      </p>
+                    </span>
+                  )}
+                </div>
 
                 <Form method="post" action="/logout">
                   <button

@@ -44,7 +44,7 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
             <span className="flex">Avatar</span>
           </div>
           <div>
-            <p className="text-2xl font-bold">Olajide seun</p>
+            <p className="text-2xl ">Olajide seun</p>
             <p className="text-slate-500">This is my bio shit</p>
           </div>
         </div>
@@ -105,9 +105,14 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
         <div className="flex gap-6 flex-wrap">
           {allProducts.map((product) => (
             <div key={product._id}>
-              <img src={product.product_image[0]} width={300} height={300} />
-              <p>{product.product_title}</p>
-              <p>{`$${product.product_price.toLocaleString()}`}</p>
+              <div>
+                <img src={product.product_image[0]} width={300} height={300} />
+                <p>{product.product_title}</p>
+                <p>{`$${product.product_price.toLocaleString()}`}</p>
+              </div>
+              <div>
+                <button>save for later</button>
+              </div>
             </div>
           ))}
         </div>

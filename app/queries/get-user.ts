@@ -9,6 +9,10 @@ export async function getUser(sessionId: string) {
       user = {
         ...userData,
         _id: userData._id.toString(),
+        savedItems: userData.savedItems.map((item) => ({
+          ...item,
+          productId: item.productId.toString(),
+        })),
       };
     }
   }

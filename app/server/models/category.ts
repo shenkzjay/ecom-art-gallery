@@ -8,6 +8,8 @@ const CategorySchema = new mongoose.Schema({
   },
 });
 
+export type CategoryType = mongoose.InferSchemaType<typeof CategorySchema> & { _id: string };
+
 const Category = mongoose.model("Category", CategorySchema);
 
 export default Category;

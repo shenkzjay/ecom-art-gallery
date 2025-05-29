@@ -108,21 +108,3 @@ export async function clearSession() {
 
   return clearedCookie;
 }
-
-// export async function getImageKitToken(
-//   privateKey: string,
-//   publicKey: string,
-//   payload: UploadPayload
-// ) {
-//   const privatekey = new TextEncoder().encode(privateKey);
-
-//   return await new SignJWT(payload.uploadPayload)
-//     .setProtectedHeader({
-//       alg: "HS256",
-//       typ: "JWT",
-//       kid: publicKey,
-//     })
-//     .setIssuedAt()
-//     .setExpirationTime("1 day from now")
-//     .sign(privatekey);
-// }

@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import { Document } from "mongoose";
+import type { UserType } from "./user";
+import type { CategoryType } from "./category";
 
 interface ProductDoc extends Document {
   product_title: string;
@@ -77,7 +79,11 @@ const ProductSchema = new mongoose.Schema({
   },
 });
 
-export type ProductType = mongoose.InferSchemaType<typeof ProductSchema> & { _id: string };
+export type ProductType = mongoose.InferSchemaType<typeof ProductSchema> & {
+  _id: string;
+  product_category: CategoryType;
+  product_author: UserType;
+};
 
 const Product = mongoose.model("Product", ProductSchema);
 

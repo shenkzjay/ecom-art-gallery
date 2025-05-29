@@ -61,6 +61,7 @@ export async function action({ request }: Route.ActionArgs) {
     clearCache("product");
     clearCache("category");
     clearCache("user");
+    clearCache("singleProduct");
 
     await newProduct.save();
 
