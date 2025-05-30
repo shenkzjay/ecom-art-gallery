@@ -1,4 +1,5 @@
 // Dropdown.tsx
+import { ProfileIcon } from "public/icons/profile";
 import React, { useState, useRef, useEffect } from "react";
 
 interface DropdownProps {
@@ -31,9 +32,14 @@ const Dropdown = ({ label, children }: DropdownProps) => {
         ref={triggerRef}
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        className="inline-flex justify-center items-center gap-2 w-full px-4 py-2 text-sm font-medium text-white bg-blue-50 rounded-full hover:bg-blue-200 cursor-pointer"
       >
-        {label}
+        <span className="block w-5 h-5 text-blue-600">
+          <ProfileIcon />
+        </span>
+        <p className="capitalize bg-blue-400 rounded-full text-white w-6 flex items-center justify-center h-6">
+          {label.slice(0, 1)}
+        </p>
       </button>
 
       {isOpen && (

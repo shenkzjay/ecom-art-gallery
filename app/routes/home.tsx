@@ -242,13 +242,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <div>
           <h3 className="text-4xl mb-12">Collections</h3>
         </div>
-        <ul className="columns-4 gap-4 space-y-4">
+        <ul className="columns-4 gap-8 space-y-8">
           {allProducts.map((product, index) => {
             const isSaved = savedProductIds?.includes(product.id);
             return (
               <li
                 key={index}
-                className="break-inside-avoid mb-4 bg-white shadow rounded-lg overflow-hidden"
+                className="break-inside-avoid mb-8 bg-white rounded-lg overflow-hidden"
               >
                 <Link to={`/artwork/${product.id}`}>
                   <div className="mb-2">
@@ -261,7 +261,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                   </div>
                 </Link>
 
-                <div className="p-4">
+                <div className="py-4">
                   <div className="flex justify-between items-start">
                     <div className="w-full">
                       <p className="capitalize font-semibold text-lg mb-1">
@@ -335,12 +335,12 @@ export const SavedItems = ({
       type="button"
       onClick={handleToggle}
       className={`
-      px-4 py-2 rounded-full transition-all duration-200 
+      px-4 py-0 rounded-full transition-all duration-200 
       disabled:opacity-50 disabled:cursor-not-allowed
       ${
         isOptimisticSaved
-          ? "bg-red-500 hover:bg-red-600 text-white"
-          : "bg-slate-50 hover:bg-slate-200 text-slate-500"
+          ? " hover:text-red-600 text-red-500"
+          : " hover:text-slate-600 text-slate-500"
       }
       ${isLoading ? "animate-pulse" : ""}
     `}

@@ -14,9 +14,11 @@ export default [
     route("artwork/:artworkId", "routes/artists/artwork-details.tsx"),
     route("orders/:artworkId/shipping", "routes/order/shipping.tsx"),
     route("order/success", "routes/order/success.tsx"),
+    route("order/order-history", "routes/order/order-history.tsx"),
     route("logout", "routes/auth/logout.tsx"),
     route("artist", "routes/artists/artwork.tsx"),
     route("artist/upload-artwork", "routes/artists/upload-artwork.tsx"),
+    route("collection", "routes/user/collection.tsx"),
   ]),
 
   route("login", "routes/auth/login.tsx"),

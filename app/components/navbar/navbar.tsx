@@ -152,18 +152,18 @@ export function Navbar({ user }: NavbarProps) {
                   )}
                   {user.roles[0] !== ROLE_LIST.Admin && user.roles[0] !== ROLE_LIST.artist && (
                     <>
-                      <a
-                        href="/settings"
+                      <NavLink
+                        to="/collection"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        My art collection
-                      </a>
-                      <a
-                        href="/settings"
+                        Collections
+                      </NavLink>
+                      <NavLink
+                        to="order/order-history"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         Order
-                      </a>
+                      </NavLink>
                       <div className="flex justify-between items-center px-4 hover:bg-gray-100">
                         <a
                           href="/settings"
@@ -292,18 +292,18 @@ export function Navbar({ user }: NavbarProps) {
                 )}
                 {user.roles[0] !== ROLE_LIST.Admin && user.roles[0] !== ROLE_LIST.artist && (
                   <>
-                    <a
-                      href="/settings"
+                    <NavLink
+                      to="/collection"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
-                      My art collection
-                    </a>
-                    <a
-                      href="/settings"
+                      Collections
+                    </NavLink>
+                    <NavLink
+                      to="/order/order-history"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     >
                       Order
-                    </a>
+                    </NavLink>
                     <div className="flex justify-between items-center px-4 hover:bg-gray-100">
                       <a
                         href="/settings"
