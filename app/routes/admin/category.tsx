@@ -9,6 +9,7 @@ import { Modals } from "~/components/modals";
 import { SearchIcon } from "public/icons/search";
 import { getSession } from "~/utils/session";
 import { getAllCategories } from "~/queries/get-all-cat";
+import { ROLE_LIST } from "~/server/configs/role";
 
 export async function action({ request }: Route.ActionArgs) {
   await ConnectToDatabase();
@@ -86,6 +87,12 @@ export function HydrateFallback() {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
+  const session = await getSession(request);
+
+  if (!session || !session.roles?.includes(ROLE_LIST.Admin)) {
+    throw redirect("/");
+  }
+
   await ConnectToDatabase();
 
   const cachedCategories = getCached<{ id: string; categoryName: string }[]>("categories");

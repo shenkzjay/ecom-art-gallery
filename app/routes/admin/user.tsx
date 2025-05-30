@@ -1,6 +1,6 @@
 import { Form, redirect } from "react-router";
 import type { Route } from "./+types/user";
-import { hashPassword, setSession } from "~/utils/session";
+import { getSession, hashPassword, setSession } from "~/utils/session";
 import User from "~/server/models/user";
 import { ROLE_LIST } from "~/server/configs/role";
 import { ConnectToDatabase } from "~/db/db.server";
@@ -65,7 +65,13 @@ export async function action({ request }: Route.ActionArgs) {
   }
 }
 
-export async function loader({ request }: Route.LoaderArgs) {}
+export async function loader({ request }: Route.LoaderArgs) {
+  const session = await getSession(request);
+
+  if (!session || !session.roles?.includes(ROLE_LIST.Admin)) {
+    throw redirect("/");
+  }
+}
 
 export default function CreateUser() {
   return (

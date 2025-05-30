@@ -15,6 +15,7 @@ import { getAllArtist } from "~/queries/get-artist";
 import Product from "~/server/models/product";
 import { clearCache, setInCached } from "~/utils/cache.server";
 import { useState } from "react";
+import { ROLE_LIST } from "~/server/configs/role";
 
 export async function action({ request }: Route.ActionArgs) {
   await ConnectToDatabase();
@@ -79,6 +80,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   await ConnectToDatabase();
 
   const session = await getSession(request);
+
+  if (
+    !session ||
+    !session.roles?.includes(ROLE_LIST.Admin) ||
+    !session.roles?.includes(ROLE_LIST.artist)
+  ) {
+    throw redirect("/");
+  }
 
   const [allCategories, user] = await Promise.all([
     getAllCategories(),

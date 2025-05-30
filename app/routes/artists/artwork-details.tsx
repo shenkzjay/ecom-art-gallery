@@ -4,13 +4,15 @@ import { getProductById } from "~/queries/get-productbyId";
 // import { getCached, setInCached } from "~/utils/cache.server";
 import type { ProductFrontendType } from "~/queries/get-product";
 import { UpArrowheadIcon } from "public/icons/up-arrowhead";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import mongoose from "mongoose";
 import { getSession } from "~/utils/session";
 import { getUser } from "~/queries/get-user";
 import { useState } from "react";
 import { SavedItems } from "../home";
 import { DownArrowheadIcon } from "public/icons/down-arrowhead";
+import { ROLE_LIST } from "~/server/configs/role";
+import { redirect } from "react-router";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
   await ConnectToDatabase();
@@ -22,6 +24,16 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   //   return {
   //     singleProducts: cachedSingleProduct,
   //   };
+  // }
+
+  // const session = await getSession(request);
+
+  // if (
+  //   !session ||
+  //   !session.roles?.includes(ROLE_LIST.Admin) ||
+  //   !session.roles?.includes(ROLE_LIST.artist)
+  // ) {
+  //   throw redirect("/");
   // }
 
   try {
@@ -58,7 +70,7 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <section className="bg-[#f7f7f7]  h-[600px]">
+    <section className="bg-[#f7f7f7]  h-[600px] pt-20">
       <div className="container mx-auto">
         <div className="flex">
           <button
@@ -101,12 +113,16 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
               } `}</p>
             </div>
             <div className="">
-              <button className=" bg-blue-600 hover:bg-blue-800 px-6 text-white flex justify-between items-center  rounded-full cursor-pointer py-4 w-full  ">
+              <NavLink
+                to={`/orders/${singleProducts._id}/shipping`}
+                state={{ productId: singleProducts?._id }}
+                className=" bg-blue-600 hover:bg-blue-800 px-6 text-white flex justify-between items-center  rounded-full cursor-pointer py-4 w-full  "
+              >
                 <p>Purchase</p>
                 <span className="w-5 h-5 flex [transform:rotate(270deg)]">
                   <DownArrowheadIcon />
                 </span>
-              </button>
+              </NavLink>
             </div>
           </div>
           <div className="relative group col-span-2">
@@ -133,33 +149,34 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
             <p>{singleProducts.style || "style"}</p>
           </div> */}
 
-            {singleProducts.product_image.length > 1 ? (
-              <ul className="flex flex-col gap-4 justify-center items-center">
-                {singleProducts.product_image.map((image, index) => (
-                  <li
-                    key={index}
-                    role="button"
-                    onClick={() => handleSelectImage(image)}
-                    className={`cursor-pointer ${
-                      isImageselected === image ? "ring-2 ring-offset-4 ring-gray-300" : ""
-                    }`}
-                  >
-                    <img src={image} width={120} height={120} alt={`artwork painting-${index}`} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="flex flex-col items-start gap-4">
-                <button className="cursor-pointer px-6 py-3 bg-black rounded-full w-full text-white">
-                  Purchase
-                </button>
-                {!isSaved && (
-                  <button className="cursor-pointer px-6 py-3 border border-black rounded-full w-full text-black">
-                    Save for later
-                  </button>
-                )}
-              </div>
-            )}
+            {
+              singleProducts.product_image.length > 1 && (
+                <ul className="flex flex-col gap-4 justify-center items-center">
+                  {singleProducts.product_image.map((image, index) => (
+                    <li
+                      key={index}
+                      role="button"
+                      onClick={() => handleSelectImage(image)}
+                      className={`cursor-pointer ${
+                        isImageselected === image ? "ring-2 ring-offset-4 ring-gray-300" : ""
+                      }`}
+                    >
+                      <img src={image} width={120} height={120} alt={`artwork painting-${index}`} />
+                    </li>
+                  ))}
+                </ul>
+              )
+              // <div className="flex flex-col items-start gap-4">
+              //   <button className="cursor-pointer px-6 py-3 bg-black rounded-full w-full text-white">
+              //     Purchase
+              //   </button>
+              //   {!isSaved && (
+              //     <button className="cursor-pointer px-6 py-3 border border-black rounded-full w-full text-black">
+              //       Save for later
+              //     </button>
+              //   )}
+              // </div>
+            }
           </div>
         </section>
       </div>

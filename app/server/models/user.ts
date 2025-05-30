@@ -70,6 +70,25 @@ const UserSchema = new mongoose.Schema(
         },
       },
     ],
+
+    purchasedItems: [
+      {
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+        purchasedAt: {
+          type: Date,
+          default: Date.now,
+        },
+        licenseType: {
+          type: String,
+          enum: ["personal", "commercial", "all_rights_reserved"],
+          default: "personal",
+        },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -103,6 +122,15 @@ UserSchema.virtual("orders", {
 export type UserType = mongoose.InferSchemaType<typeof UserSchema> & {
   _id: string;
   orders?: OrderType[];
+  savedItems: Array<{
+    productId: string;
+    savedAt: Date;
+  }>;
+  purchasedItems: Array<{
+    productId: string;
+    purchasedAt: Date;
+    licenseType: string;
+  }>;
 };
 
 const User = mongoose.model("User", UserSchema);

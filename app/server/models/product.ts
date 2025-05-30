@@ -84,6 +84,17 @@ const ProductSchema = new mongoose.Schema({
     required: true,
   },
 
+  licenseType: {
+    type: String,
+    enum: [
+      "all_rights_reserved",
+      "personal_use_only",
+      "commercial_use_allowed",
+      "creative_commons",
+    ],
+    default: "all_rights_reserved",
+  },
+
   saleDetails: {
     type: [
       {

@@ -9,6 +9,8 @@ import type { ProductType } from "~/server/models/product";
 import { getAllProducts } from "~/queries/get-product";
 import { getSession } from "~/utils/session";
 import { getUser } from "~/queries/get-user";
+import { ROLE_LIST } from "~/server/configs/role";
+import { redirect } from "react-router";
 
 export async function loader({ request }: Route.LoaderArgs) {
   await ConnectToDatabase();
@@ -22,6 +24,14 @@ export async function loader({ request }: Route.LoaderArgs) {
   // }
 
   const session = await getSession(request);
+
+  if (
+    !session ||
+    !session.roles?.includes(ROLE_LIST.Admin) ||
+    !session.roles?.includes(ROLE_LIST.artist)
+  ) {
+    throw redirect("/");
+  }
 
   const sessionId = session?._id;
 
