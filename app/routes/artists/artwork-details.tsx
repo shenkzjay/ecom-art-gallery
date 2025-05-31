@@ -112,18 +112,29 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
                 singleProducts.dimensions?.unit || "cm"
               } `}</p>
             </div>
-            <div className="">
-              <NavLink
-                to={`/orders/${singleProducts._id}/shipping`}
-                state={{ productId: singleProducts?._id }}
-                className=" bg-blue-600 hover:bg-blue-800 px-6 text-white flex justify-between items-center  rounded-full cursor-pointer py-4 w-full  "
-              >
-                <p>Purchase</p>
-                <span className="w-5 h-5 flex [transform:rotate(270deg)]">
-                  <DownArrowheadIcon />
-                </span>
-              </NavLink>
-            </div>
+            {singleProducts.isSold ? (
+              <div>
+                <p className=" bg-slate-200 hover:bg-slate-200 px-6 border-dashed border-2 text-slate-400 flex justify-center items-center  rounded-full pointer-events-none py-4 w-full  ">
+                  <p> NOT AVAILABLE</p>
+                  {/* <span className="w-5 h-5 flex [transform:rotate(270deg)]">
+                    <DownArrowheadIcon />
+                  </span> */}
+                </p>
+              </div>
+            ) : (
+              <div className="">
+                <NavLink
+                  to={`/orders/${singleProducts._id}/shipping`}
+                  state={{ productId: singleProducts?._id }}
+                  className=" bg-blue-600 hover:bg-blue-800 px-6 text-white flex justify-between items-center  rounded-full cursor-pointer py-4 w-full  "
+                >
+                  <p>Purchase</p>
+                  <span className="w-5 h-5 flex [transform:rotate(270deg)]">
+                    <DownArrowheadIcon />
+                  </span>
+                </NavLink>
+              </div>
+            )}
           </div>
           <div className="relative group md:col-span-2">
             <div className="w-full h-[500px] ">

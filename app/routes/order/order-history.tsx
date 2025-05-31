@@ -78,7 +78,7 @@ const OrderHistory = ({ loaderData }: Route.ComponentProps) => {
         <h1 className="text-3xl font-bold text-gray-900 mb-8 mt-20">Order History</h1>
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8 cursor-pointer" aria-label="Tabs">
-            {["processing", "shipped", "delivered", "cancelled"].map((status) => (
+            {["processing", "shipped", "delivered"].map((status) => (
               <a
                 key={status}
                 onClick={() => setActiveTab(status)}

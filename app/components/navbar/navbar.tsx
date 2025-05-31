@@ -102,7 +102,10 @@ export function Navbar({ user }: NavbarProps) {
             {user ? (
               <div className="ml-4 flex items-center md:ml-6">
                 <Dropdown label={user.profile?.name || ""}>
-                  <p>{roleName}</p>
+                  <div className="p-4 bg-blue-50 rounded-md">
+                    <p>{user.profile?.name || ""}</p>
+                    <p className="text-xs text-slate-400">{roleName}</p>
+                  </div>
                   <a
                     href="/profile"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

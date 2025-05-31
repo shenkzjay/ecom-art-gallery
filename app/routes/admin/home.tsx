@@ -1,6 +1,14 @@
 import { Form } from "react-router";
+import { useLoaderData } from "react-router";
+import { ProductsTable } from "~/components/admin/ProductsTable";
 
 export default function AdminHome() {
+  const { user, products } = useLoaderData();
+
+  if (user.roles[0] !== "Admin") {
+    return <p>You do not have permission to view this page.</p>;
+  }
+
   return (
     <section className="">
       <h2>Welcome</h2>
@@ -44,6 +52,10 @@ export default function AdminHome() {
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section>
+        <ProductsTable products={products} />
       </section>
     </section>
   );
