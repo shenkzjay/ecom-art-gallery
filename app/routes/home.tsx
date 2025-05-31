@@ -125,9 +125,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <section className="mt-12 ">
         <div className="flex gap-6 items-center bg-[url('/images/hero.png')] bg-center w-full h-[500px] relative  ">
           <div className="h-full w-full bg-black/40 absolute top-0"></div>
-          <div className="w-full flex flex-col gap-10  z-10  items-center justify-center">
+          <div className="w-full flex flex-col gap-10  z-10  items-center justify-center mx-6 md:mx-0">
             <div className="flex items-center  justify-center">
-              <h2 className="w-[70%] text-6xl font-bold text-white text-center">
+              <h2 className="md:w-[70%] md:text-6xl text-4xl font-bold text-white text-center">
                 Explore curated collection of original art
               </h2>
             </div>
@@ -140,7 +140,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       </section>
 
       {/* featured art type section */}
-      <section className="mt-[150px] container mx-auto grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8">
+      <section className="mx-6 mt-[150px] md:container md:mx-auto grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8">
         <article className="grid">
           <figure className="grid gap-6 grid-rows-subgrid row-span-3">
             <figcaption className="flex justify-between items-center mb">
@@ -213,9 +213,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         </article>
       </section>
 
-      <section className="flex mt-[150px]">
-        <div className="w-1/2 flex justify-center items-center flex-col bg-[#f7f7f7]">
-          <div className=" w-1/2 text-balance text-center grid gap-6 ">
+      <section className="flex md:flex-row flex-col mt-[150px]">
+        <div className="md:w-1/2 flex justify-center items-center flex-col bg-[#f7f7f7]">
+          <div className=" md:w-1/2 text-balance text-center grid gap-6 p-6 md:p-0 ">
             <h3 className="text-4xl ">Welcome to the Art and History Museum, Ozeunma</h3>
             <p className="text-sm text-slate-400">
               Not only the outstanding quality of the collections, but also our high level of
@@ -225,7 +225,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
 
-        <div className="w-1/2 relative">
+        <div className="md:w-1/2 relative">
           <img
             src="/images/sculp.png"
             width={400}
@@ -242,7 +242,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         <div>
           <h3 className="text-4xl mb-12">Collections</h3>
         </div>
-        <ul className="columns-4 gap-8 space-y-8">
+        <ul className="md:columns-4 gap-8 space-y-8">
           {allProducts.map((product, index) => {
             const isSaved = savedProductIds?.includes(product.id);
             return (
@@ -273,9 +273,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                       <p className="font-bold text-lg">${product.product_price.toLocaleString()}</p>
                     </div>
 
-                    <div className="mt-2">
-                      <SavedItems productId={product.id} isSaved={isSaved} />
-                    </div>
+                    <SavedItems productId={product.id} isSaved={isSaved} />
                   </div>
                 </div>
               </li>
@@ -335,7 +333,7 @@ export const SavedItems = ({
       type="button"
       onClick={handleToggle}
       className={`
-      px-4 py-0 rounded-full transition-all duration-200 
+      px-4 py-0  transition-all duration-200 
       disabled:opacity-50 disabled:cursor-not-allowed
       ${
         isOptimisticSaved
@@ -368,9 +366,13 @@ export const SavedItems = ({
       ) : (
         <>
           {isOptimisticSaved ? (
-            <span className="flex items-center text-xs gap-2">❤️ Saved</span>
+            <span className="flex flex-col items-center  gap-0">
+              <p className="text-xl">❤️ </p> <p className="text-xs">Save</p>
+            </span>
           ) : (
-            <span className="flex items-center text-xs gap-2">🤍 Save</span>
+            <span className="flex flex-col items-center  gap-0">
+              <p className="text-xl">🤍 </p> <p className="text-xs">Save</p>
+            </span>
           )}
         </>
       )}

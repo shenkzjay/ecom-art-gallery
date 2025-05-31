@@ -70,8 +70,8 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <section className="bg-[#f7f7f7]  h-[600px] pt-20">
-      <div className="container mx-auto">
+    <section className="bg-[#f7f7f7]  h-[650px] pt-20">
+      <div className="md:container md:mx-auto mx-6 pb-20">
         <div className="flex">
           <button
             onClick={() => navigate(-1)}
@@ -86,16 +86,16 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
               {`${singleProducts.product_author.profile?.name}`}
             </p>
           </div>
-          <div className="flex flex-row items-end gap-2">
-            <h2 className="text-6xl capitalize">{`${singleProducts.product_title}`}</h2>
+          <div className="flex md:flex-row flex-col md:items-end items-center gap-2">
+            <h2 className="md:text-6xl text-4xl capitalize">{`${singleProducts.product_title}`}</h2>
             <p className="text-slate-400 italic">{`s.p.${new Date(
               singleProducts.product_date || ""
             ).getFullYear()}`}</p>
           </div>
         </div>
 
-        <section className="grid mt-12  grid-cols-4 items-center gap-8">
-          <div className="flex flex-col gap-2">
+        <section className="grid mt-12  md:grid-cols-4 items-center gap-8">
+          <div className="flex flex-col gap-2 order-1 md:order-0">
             <div>
               <p className="text-xs text-slate-400">Price</p>
               <p className="font-bold text-xl">{`$${singleProducts.product_price.toLocaleString()}`}</p>
@@ -125,7 +125,7 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
               </NavLink>
             </div>
           </div>
-          <div className="relative group col-span-2">
+          <div className="relative group md:col-span-2">
             <div className="w-full h-[500px] ">
               <img
                 src={isImageselected ? isImageselected : singleProducts?.product_image[0]}
@@ -151,7 +151,7 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
 
             {
               singleProducts.product_image.length > 1 && (
-                <ul className="flex flex-col gap-4 justify-center items-center">
+                <ul className="flex md:flex-col gap-4 justify-center items-center">
                   {singleProducts.product_image.map((image, index) => (
                     <li
                       key={index}

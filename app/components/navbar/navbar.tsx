@@ -12,7 +12,7 @@ interface NavbarProps {
 }
 
 export function Navbar({ user }: NavbarProps) {
-  console.log(user, "nav");
+  console.log(user?.savedItems, "nav");
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -21,7 +21,7 @@ export function Navbar({ user }: NavbarProps) {
   const roleName = getRoleName(role);
 
   return (
-    <nav className="fixed top-0 w-full bg-white   z-50">
+    <nav className={`fixed top-0 w-full bg-white   z-50`}>
       <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-0">
         <div className="flex justify-between h-12">
           <div className="flex">
@@ -216,24 +216,28 @@ export function Navbar({ user }: NavbarProps) {
           <NavLink
             to="/"
             className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            onClick={() => setIsOpen(false)}
           >
             Home
           </NavLink>
           <NavLink
             to="/artist"
             className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            onClick={() => setIsOpen(false)}
           >
             Artist
           </NavLink>
           <NavLink
             to="/buy"
             className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            onClick={() => setIsOpen(false)}
           >
             Buy
           </NavLink>
           <NavLink
             to="/event"
             className="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+            onClick={() => setIsOpen(false)}
           >
             Event
           </NavLink>
@@ -246,6 +250,7 @@ export function Navbar({ user }: NavbarProps) {
                 <a
                   href="/profile"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  onClick={() => setIsOpen(false)}
                 >
                   Profile
                 </a>
@@ -254,12 +259,14 @@ export function Navbar({ user }: NavbarProps) {
                     <NavLink
                       to="/artist"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setIsOpen(false)}
                     >
                       Artwork
                     </NavLink>
                     <a
                       href="/settings"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setIsOpen(false)}
                     >
                       Settings
                     </a>
@@ -270,6 +277,7 @@ export function Navbar({ user }: NavbarProps) {
                     <NavLink
                       to="/artist"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setIsOpen(false)}
                     >
                       Artwork
                     </NavLink>
@@ -277,6 +285,7 @@ export function Navbar({ user }: NavbarProps) {
                       <a
                         href="/settings"
                         className="block py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setIsOpen(false)}
                       >
                         Saved
                       </a>
@@ -295,12 +304,14 @@ export function Navbar({ user }: NavbarProps) {
                     <NavLink
                       to="/collection"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setIsOpen(false)}
                     >
                       Collections
                     </NavLink>
                     <NavLink
                       to="/order/order-history"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setIsOpen(false)}
                     >
                       Order
                     </NavLink>
@@ -308,6 +319,7 @@ export function Navbar({ user }: NavbarProps) {
                       <a
                         href="/settings"
                         className="block py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setIsOpen(false)}
                       >
                         Saved
                       </a>
@@ -325,6 +337,7 @@ export function Navbar({ user }: NavbarProps) {
                   <button
                     type="submit"
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setIsOpen(false)}
                   >
                     Log out
                   </button>
@@ -336,12 +349,14 @@ export function Navbar({ user }: NavbarProps) {
               <NavLink
                 to="/login"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsOpen(false)}
               >
                 Login
               </NavLink>
               <NavLink
                 to="/signup"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                onClick={() => setIsOpen(false)}
               >
                 Sign up
               </NavLink>

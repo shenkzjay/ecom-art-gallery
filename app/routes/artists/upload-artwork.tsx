@@ -83,8 +83,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (
     !session ||
-    !session.roles?.includes(ROLE_LIST.Admin) ||
-    !session.roles?.includes(ROLE_LIST.artist)
+    (!session.roles?.includes(ROLE_LIST.Admin) && !session.roles?.includes(ROLE_LIST.artist))
   ) {
     throw redirect("/");
   }
@@ -125,7 +124,7 @@ export default function UploadArtwork({ loaderData }: Route.ComponentProps) {
 
   return (
     <section className="container mx-auto w-[90vw]">
-      <div className="my-10 flex items-center gap-4  ">
+      <div className="mt-20 mb-12 flex items-center gap-4  ">
         <button
           className=" w-5 h-5 [transform:rotate(270deg)] cursor-pointer"
           onClick={() => navigate(-1)}
@@ -139,7 +138,11 @@ export default function UploadArtwork({ loaderData }: Route.ComponentProps) {
         aria-busy={isSubmitting}
         className={`${isSubmitting ? "opacity-60 animate-pulse pointer-events-none" : ""}`}
       >
-        <Form method="post" className="grid grid-cols-2 gap-12" encType="multipart/form-data">
+        <Form
+          method="post"
+          className="md:grid md:grid-cols-2 grid-cols-1 md:gap-12 flex flex-col gap-8"
+          encType="multipart/form-data"
+        >
           <div>
             <label htmlFor="product_title" className="sr-only"></label>
             <input
@@ -197,7 +200,7 @@ export default function UploadArtwork({ loaderData }: Route.ComponentProps) {
             />
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex md:flex-row flex-col gap-4">
             <div>
               <label htmlFor=" height" className="sr-only"></label>
               <input
@@ -346,7 +349,7 @@ export default function UploadArtwork({ loaderData }: Route.ComponentProps) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`bg-blue-600 px-4 py-4 w-1/3  rounded-full text-white mt-10 cursor-pointer ${
+            className={`bg-blue-600 px-4 py-4 md:w-1/3 mb-20  rounded-full text-white mt-10 cursor-pointer ${
               isSubmitting ? "opacity-70 cursor-not-allowed" : "cursor-pointer"
             }`}
           >

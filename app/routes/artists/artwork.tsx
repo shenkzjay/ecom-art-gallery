@@ -27,8 +27,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   if (
     !session ||
-    !session.roles?.includes(ROLE_LIST.Admin) ||
-    !session.roles?.includes(ROLE_LIST.artist)
+    (!session.roles?.includes(ROLE_LIST.Admin) && !session.roles?.includes(ROLE_LIST.artist))
   ) {
     throw redirect("/");
   }
@@ -60,9 +59,9 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
 
   return (
     <section>
-      <div className="flex justify-between mt-12 container mx-auto  rounded-2xl">
-        <div className="flex items-center gap-6 ">
-          <div className="border rounded-full flex w-24 h-24 justify-center items-center ">
+      <div className="flex md:flex-row flex-col md:justify-between mt-20 container md:mx-auto  rounded-2xl">
+        <div className="flex items-center gap-6 mx-6 md:mx-0">
+          <div className="border rounded-full flex md:w-24 md:h-24 w-12 h-12 justify-center items-center ">
             <span className="flex">Avatar</span>
           </div>
           <div>
@@ -70,14 +69,14 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
             <p className="text-slate-500">{user?.profile?.bio}</p>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 mx-6 md:mx-0 mt-4 w-full">
           <p>Profile</p>
           <p>settings</p>
         </div>
       </div>
       <div>
-        <div className="flex  rounded-xl my-12 bg-[#f7f7f7]">
-          <div className="w-1/2 min-h-full p-6 flex flex-col justify-center items-center gap-6">
+        <div className="flex md:flex-row flex-col  rounded-xl my-12 bg-[#f7f7f7]">
+          <div className="md:w-1/2 min-h-full p-6 flex flex-col justify-center items-center gap-6">
             <div className="flex flex-col mt-0 ">
               <ul className="flex flex-col gap-6 ">
                 <li>
@@ -110,7 +109,7 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
               </Link>
             </div>
           </div>
-          <div className="w-1/2 flex justify-end">
+          <div className="md:w-1/2 flex justify-end">
             <img
               src="images/art9.webp"
               width={600}
@@ -128,7 +127,13 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
           {filteredProduct.map((product, index) => (
             <div key={`${product._id}-${index}`}>
               <div>
-                <img src={product.product_image[0]} width={300} height={300} />
+                <img
+                  src={product.product_image[0]}
+                  width={300}
+                  height={300}
+                  alt={`poster-${index}`}
+                  className="w-full"
+                />
                 <p>{product.product_title}</p>
                 <p>{`$${product.product_price.toLocaleString()}`}</p>
               </div>
