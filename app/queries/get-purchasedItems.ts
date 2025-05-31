@@ -1,19 +1,21 @@
 import User from "~/server/models/user";
 
 export async function getPurchasedItems(userId: string) {
-  const user = await User.findById(userId)
-    .populate({
-      path: "purchasedItems.productId",
-      model: "Product",
-    })
-    .lean();
+  const userDoc = await User.findById(userId).populate({
+    path: "purchasedItems.productId",
+    model: "Product",
+    populate: [
+      { path: "product_author", model: "User" },
+      { path: "product_category", model: "Category" },
+    ],
+  });
 
-  const purchasedProducts = user?.purchasedItems
-    .filter((item) => item.productId)
-    .map((item) => ({
-      ...item,
-      id: item.productId.toString(),
-    }));
+  const user = userDoc?.toObject();
+
+  const purchasedProducts = user?.purchasedItems.map((item) => ({
+    ...item,
+    id: item.productId?._id?.toString(),
+  }));
 
   return purchasedProducts;
 }

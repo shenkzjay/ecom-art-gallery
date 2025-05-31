@@ -128,11 +128,13 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <div className="w-full flex flex-col gap-10  z-10  items-center justify-center mx-6 md:mx-0">
             <div className="flex items-center  justify-center">
               <h2 className="md:w-[70%] md:text-6xl text-4xl font-bold text-white text-center">
-                Explore curated collection of original art
+                Buy signed digital arts from creatives
               </h2>
             </div>
             <div>
-              <button className="py-3 px-6 rounded-full bg-blue-500 text-white">Start tour</button>
+              <button className="py-3 px-6 rounded-full bg-blue-500 text-white">
+                Browse collections
+              </button>
             </div>
           </div>
           {/* <div className="w-1/2"> <img src="/images/hero.png" /> </div> */}

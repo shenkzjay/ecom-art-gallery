@@ -36,7 +36,7 @@ export default function MainLayout({ loaderData }: Route.ComponentProps) {
     <section className="relative">
       <Navbar user={user} />
 
-      <div className="w-full">
+      <div className="w-full pt-12">
         <Outlet />
       </div>
     </section>
