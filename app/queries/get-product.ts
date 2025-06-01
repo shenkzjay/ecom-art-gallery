@@ -15,8 +15,6 @@ export async function getAllProducts() {
     .populate("product_author")
     .lean<ProductType[]>();
 
-  console.log(productsData, "prod");
-
   if (!productsData) {
     throw Error("product Not Found on db");
   }

@@ -34,8 +34,6 @@ export async function action({ request }: Route.ActionArgs) {
         });
 
         uploadFileUrl.push(blob.url);
-
-        console.log(uploadFileUrl);
       }
     }
 
@@ -56,11 +54,7 @@ export async function action({ request }: Route.ActionArgs) {
       medium: formdata.get("medium") as string,
     };
 
-    console.log({ productData });
-
     const newProduct = new Product(productData);
-
-    console.log({ newProduct });
 
     clearCache("product");
     clearCache("category");
@@ -110,8 +104,6 @@ export default function UploadArtwork({ loaderData }: Route.ComponentProps) {
 
   const isSubmitting = navigation.state === "submitting";
 
-  console.log({ user });
-
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const multipleFiles = Array.from(e.target.files);
@@ -124,7 +116,7 @@ export default function UploadArtwork({ loaderData }: Route.ComponentProps) {
 
   return (
     <section className="container mx-auto w-[90vw]">
-      <div className="mt-20 mb-12 flex items-center gap-4  ">
+      <div className="mt-10 mb-12 flex items-center gap-4  ">
         <button
           className=" w-5 h-5 [transform:rotate(270deg)] cursor-pointer"
           onClick={() => navigate(-1)}

@@ -70,7 +70,7 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <section className="bg-[#f7f7f7]  h-[650px] pt-20">
+    <section className="bg-[#f7f7f7]  h-[650px]">
       <div className="md:container md:mx-auto mx-6 pb-20">
         <div className="flex">
           <button
@@ -115,7 +115,7 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
             {singleProducts.isSold ? (
               <div>
                 <p className=" bg-slate-200 hover:bg-slate-200 px-6 border-dashed border-2 text-slate-400 flex justify-center items-center  rounded-full pointer-events-none py-4 w-full  ">
-                  <p> NOT AVAILABLE</p>
+                  <p className="text-xl"> SOLD</p>
                   {/* <span className="w-5 h-5 flex [transform:rotate(270deg)]">
                     <DownArrowheadIcon />
                   </span> */}

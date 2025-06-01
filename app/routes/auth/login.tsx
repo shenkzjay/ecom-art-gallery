@@ -18,8 +18,6 @@ export async function action({ request }: Route.ActionArgs) {
     email: email,
   }).select("+passwordHash");
 
-  console.log(user);
-
   if (!user) {
     return {
       message: "No user found. Please sign up to continue",
@@ -35,8 +33,6 @@ export async function action({ request }: Route.ActionArgs) {
   }
 
   const isPasswordValid = await comparePassword(password, user.passwordHash);
-
-  console.log({ isPasswordValid });
 
   if (!isPasswordValid) {
     return {
@@ -67,40 +63,51 @@ export async function action({ request }: Route.ActionArgs) {
 
 export default function Login() {
   return (
-    <section className="flex flex-col justify-center items-center h-screen">
-      <Form method="post" className="">
-        <div>
-          <label htmlFor="email" className="sr-only">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="email"
-            className="border py-2 px-4 rounded-xl"
-            required
-          />
-        </div>
+    <section className="flex flex-col justify-center items-center h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg w-full md:max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <Form method="post" className="space-y-4">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 sr-only">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="email"
+              className="w-full px-3 py-2 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
 
-        <div>
-          <label htmlFor="Password" className="sr-only">
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            id="password"
-            className="border py-2 px-4 rounded-xl"
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </Form>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 sr-only">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              id="password"
+              className="w-full px-3 py-2 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          <button
+            className="w-full bg-blue-500 text-white py-3 rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            type="submit"
+          >
+            Sign Up
+          </button>
+        </Form>
 
-      <div>
-        Not yet Signed up? <NavLink to={"/signup"}>Sign up</NavLink>
+        <div className="mt-4 text-center">
+          Not yet signed up?{" "}
+          <NavLink to={"/signup"} className="text-blue-600 hover:text-blue-500">
+            Sign up
+          </NavLink>
+        </div>
       </div>
     </section>
   );

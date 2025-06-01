@@ -126,6 +126,12 @@ export type ProductType = mongoose.InferSchemaType<typeof ProductSchema> & {
   _id: string;
   product_category: CategoryType;
   product_author: UserType;
+  productId?: {
+    _id: string;
+    product_title: string;
+    product_about: string;
+    product_image: string[];
+  };
 };
 
 const Product = mongoose.model("Product", ProductSchema);

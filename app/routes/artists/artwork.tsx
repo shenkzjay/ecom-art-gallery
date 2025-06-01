@@ -15,6 +15,7 @@ import { SearchIcon } from "public/icons/search";
 import { useRef, useState } from "react";
 import { Modals } from "~/components/modals";
 import Product from "~/server/models/product";
+import { ProfileIcon } from "public/icons/profile";
 
 export async function action({ request }: Route.ActionArgs) {
   const formdata = await request.formData();
@@ -91,8 +92,6 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
     (product, _) => product.product_author.email === user?.email
   );
 
-  console.log({ allProducts, user, filteredProduct });
-
   const deletefetcher = useFetcher();
 
   const deleteRef = useRef<HTMLDialogElement | null>(null);
@@ -107,18 +106,30 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
     if (deleteRef.current) {
       deleteRef.current.showModal();
     }
-    const selectedProduct = allProducts[index];
 
-    //@ts-ignore
-    setIsSelectProduct(selectedProduct);
+    if (user?.roles.includes(ROLE_LIST.Admin)) {
+      const selectedProduct = allProducts[index];
+
+      //@ts-ignore
+      setIsSelectProduct(selectedProduct);
+    }
+
+    if (user?.roles.includes(ROLE_LIST.artist)) {
+      const selectedProduct = filteredProduct[index];
+
+      //@ts-ignore
+      setIsSelectProduct(selectedProduct);
+    }
   };
 
   return (
-    <section>
-      <div className="flex md:flex-row flex-col md:justify-between mt-20 md:container md:mx-auto">
-        <div className="flex items-center gap-6 mx-6 md:mx-0 ">
+    <section className="mb-20">
+      <div className="flex md:flex-row flex-col md:justify-between md:container md:mx-auto mt-10">
+        <div className="flex items-center gap-6 mx-6 md:mx-0  ">
           <div className="border rounded-full flex md:w-24 md:h-24 w-12 h-12 justify-center items-center ">
-            <span className="flex">Avatar</span>
+            <span className="block text-black w-10 h-10">
+              <ProfileIcon />
+            </span>
           </div>
           <div>
             <p className="text-2xl ">{user?.profile?.name}</p>
@@ -197,42 +208,22 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
 
           <div></div>
         </div>
-        <div className="flex gap-6 flex-wrap">
-          {user?.roles.includes(ROLE_LIST.artist) &&
-            filteredProduct.map((product, index) => (
-              <div key={`${product._id}-${index}`}>
-                <div>
-                  <img
-                    src={product.product_image[0]}
-                    width={300}
-                    height={300}
-                    alt={`poster-${index}`}
-                    className=""
-                  />
-                  <p>{product.product_title}</p>
-                  <p>{`$${product.product_price.toLocaleString()}`}</p>
-                </div>
-                <div>
-                  <button>save for later</button>
-                </div>
-              </div>
-            ))}
-        </div>
+
         <div className="overflow-x-scroll w-full">
-          <table className="md:w-full text-sm">
-            <thead className="bg-slate-100 ">
-              <tr className="text-sm font-semibold text-slate-500">
-                <td className="p-4">S/N</td>
-                <td className="p-4">TITLE</td>
-                <td className="p-4">ARTWORK</td>
-                <td className="p-4">PRICE</td>
-                <td className="p-4">#</td>
-                <td className="p-4">#</td>
-              </tr>
-            </thead>
-            <tbody>
-              {user?.roles.includes(ROLE_LIST.Admin) &&
-                allProducts.map((product, index) => (
+          {user?.roles.includes(ROLE_LIST.Admin) ? (
+            <table className="md:w-full text-sm">
+              <thead className="bg-slate-100 ">
+                <tr className="text-sm font-semibold text-slate-500">
+                  <td className="p-4">S/N</td>
+                  <td className="p-4">TITLE</td>
+                  <td className="p-4">ARTWORK</td>
+                  <td className="p-4">PRICE</td>
+                  <td className="p-4">#</td>
+                  <td className="p-4">#</td>
+                </tr>
+              </thead>
+              <tbody>
+                {allProducts.map((product, index) => (
                   <tr key={`${product._id}-${index}`} className="border-b border-slate-200">
                     <td className="p-4">{index + 1}</td>
                     <td className="p-4">
@@ -268,8 +259,60 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
                     </td>
                   </tr>
                 ))}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          ) : (
+            <table className="md:w-full text-sm">
+              <thead className="bg-slate-100 ">
+                <tr className="text-sm font-semibold text-slate-500">
+                  <td className="p-4">S/N</td>
+                  <td className="p-4">TITLE</td>
+                  <td className="p-4">ARTWORK</td>
+                  <td className="p-4">PRICE</td>
+                  <td className="p-4">#</td>
+                  <td className="p-4">#</td>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredProduct.map((product, idx) => (
+                  <tr key={`${product._id}-${idx}`} className="border-b border-slate-200">
+                    <td className="p-4">{idx + 1}</td>
+                    <td className="p-4">
+                      <img
+                        src={product.product_image[0]}
+                        width={80}
+                        height={80}
+                        alt={`poster-${idx}`}
+                        className="h-12 w-12"
+                      />
+                    </td>
+                    <td className="p-4">
+                      {" "}
+                      <p>{product.product_title}</p>
+                      <p className="text-sm text-slate-400">
+                        art by {product.product_author.profile?.name}
+                      </p>
+                    </td>
+
+                    <td className="p-4">
+                      {" "}
+                      <p>{`$${product.product_price.toLocaleString()}`}</p>
+                    </td>
+                    <td className="p-4">
+                      <div>
+                        <button onClick={() => handleOpenDeleteModal(idx)}>delete</button>
+                      </div>
+                    </td>
+                    <td className="p-4">
+                      <div>
+                        <button>view</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
         <Modals ref={deleteRef} handleCloseModal={handleCloseDeleteModal}>
           <p>

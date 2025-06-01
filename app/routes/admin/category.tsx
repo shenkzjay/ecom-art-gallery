@@ -121,8 +121,6 @@ export default function CreateProduct({ loaderData }: Route.ComponentProps) {
 
   const { allCategories } = loaderData;
 
-  console.log(allCategories, "clinet");
-
   const [isEditing, setIsEditing] = useState(false);
   const [isCategory, setIscategory] = useState<{ id: string; categoryName: string } | null>(null);
   const editRef = useRef<HTMLDialogElement | null>(null);
@@ -141,9 +139,6 @@ export default function CreateProduct({ loaderData }: Route.ComponentProps) {
   }, [editfetcher.state, editfetcher.data, deletefetcher.state, deletefetcher.data]);
 
   const handleOpenEditModal = (index: number) => {
-    console.log("hello");
-    console.log({ index });
-
     const currentCategory = allCategories[index];
 
     setIscategory(currentCategory);
@@ -180,8 +175,6 @@ export default function CreateProduct({ loaderData }: Route.ComponentProps) {
 
     deleteFormRef.current?.reset();
   };
-
-  console.log({ isCategory });
 
   return (
     <section className="p-6">

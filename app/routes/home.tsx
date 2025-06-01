@@ -118,11 +118,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function Home({ loaderData }: Route.ComponentProps) {
   const { allProducts, savedProductIds } = loaderData;
 
-  console.log(savedProductIds);
-
   return (
     <main>
-      <section className="mt-12 ">
+      <section className="">
         <div className="flex gap-6 items-center bg-[url('/images/hero.png')] bg-center w-full h-[500px] relative  ">
           <div className="h-full w-full bg-black/40 absolute top-0"></div>
           <div className="w-full flex flex-col gap-10  z-10  items-center justify-center mx-6 md:mx-0">
@@ -240,7 +238,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       </section>
 
       {/* art collection */}
-      <section className="mt-[150px] container mx-auto w-[90vw]">
+      <section className="mt-[150px] container mx-auto w-[90vw]" id="collection">
         <div>
           <h3 className="text-4xl mb-12">Collections</h3>
         </div>
@@ -346,7 +344,7 @@ export const SavedItems = ({
     `}
     >
       {isLoading ? (
-        <span className="flex items-center text-xs gap-2">
+        <span className="flex flex-col items-center text-[10px] gap-2">
           <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
@@ -363,7 +361,7 @@ export const SavedItems = ({
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             />
           </svg>
-          {isOptimisticSaved ? "Unsaving..." : "Saving..."}
+          {isOptimisticSaved ? "Saving..." : "Unsaving..."}
         </span>
       ) : (
         <>

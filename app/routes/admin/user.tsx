@@ -47,8 +47,6 @@ export async function action({ request }: Route.ActionArgs) {
       roles: createUserObj.roles || [ROLE_LIST.buyer],
     };
 
-    console.log(createUser);
-
     const cookiesession = await setSession(userForSession);
 
     return redirect("/admin/home", {
@@ -81,7 +79,7 @@ export default function CreateUser() {
         <label htmlFor="username" className="sr-only">
           Username
         </label>
-        <input type="username" name="username" id="username" placeholder="Username" required />
+        <input type="text" name="username" id="username" placeholder="Username" required />
       </div>
       <div>
         <label htmlFor="email" className="sr-only">

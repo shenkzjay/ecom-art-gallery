@@ -119,8 +119,6 @@ export async function action({ request, params }: Route.ActionArgs) {
       },
     });
 
-    console.log(order);
-
     return redirect("/order/success");
   } catch (error) {
     console.error(error);

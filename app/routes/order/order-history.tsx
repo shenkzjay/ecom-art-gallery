@@ -74,8 +74,8 @@ const OrderHistory = ({ loaderData }: Route.ComponentProps) => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 mt-20">Order History</h1>
+      <div className="container mx-auto px-4 md:px-0">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8 mt-6">Order History</h1>
         <div className="border-b border-gray-200">
           <nav className="-mb-px flex space-x-8 cursor-pointer" aria-label="Tabs">
             {["processing", "shipped", "delivered"].map((status) => (

@@ -12,8 +12,6 @@ interface NavbarProps {
 }
 
 export function Navbar({ user }: NavbarProps) {
-  console.log(user?.savedItems, "nav");
-
   const [isOpen, setIsOpen] = useState(false);
 
   const role = user?.roles[0];
@@ -68,7 +66,7 @@ export function Navbar({ user }: NavbarProps) {
             </div>
             <div className="flex-shrink-0 flex items-center">
               <Link to="/" className="text-xl font-bold text-gray-800">
-                Art Gallery
+                iArt
               </Link>
             </div>
             <div className="hidden md:ml-6 md:flex md:space-x-8">
@@ -79,22 +77,22 @@ export function Navbar({ user }: NavbarProps) {
                 Home
               </NavLink>
               <NavLink
-                to="/artist"
+                to="#collection"
                 className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
-                Artist
+                Collection
               </NavLink>
               <NavLink
                 to="/buy"
                 className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
-                Buy
+                Artist
               </NavLink>
               <NavLink
                 to="/event"
-                className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                className="border-transparent pointer-events-none text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
               >
-                Event
+                Fairs & Event
               </NavLink>
             </div>
           </div>

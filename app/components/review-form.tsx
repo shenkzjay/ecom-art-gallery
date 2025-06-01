@@ -37,8 +37,6 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   totalPrice,
   productId,
 }) => {
-  console.log(formData);
-
   return (
     <div className="flex flex-col gap-6">
       <h2 className="text-2xl font-bold">Review Your Order</h2>
