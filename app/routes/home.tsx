@@ -1,6 +1,6 @@
 import { getCached, setInCached } from "~/utils/cache.server";
 import type { Route } from "./+types/home";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import type { ProductType } from "~/server/models/product";
 import { getAllProducts, type ProductFrontendType } from "~/queries/get-product";
 import { getSession } from "~/utils/session";
@@ -130,9 +130,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
               </h2>
             </div>
             <div>
-              <button className="py-3 px-6 rounded-full bg-blue-500 text-white">
+              <NavLink to="#collection" className="py-3 px-6 rounded-full bg-blue-500 text-white">
                 Browse collections
-              </button>
+              </NavLink>
             </div>
           </div>
           {/* <div className="w-1/2"> <img src="/images/hero.png" /> </div> */}
