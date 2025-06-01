@@ -13,16 +13,8 @@ import User from "~/server/models/user";
 
 export async function action({ request, params }: Route.ActionArgs) {
   const session = await getSession(request);
-
   const productId = params.artworkId;
-
-  if (!session) {
-    return redirect("/login");
-  }
-
-  const sessionId = session._id;
-
-  const userId = await getUser(sessionId);
+  const userId = session ? await getUser(session._id) : null;
 
   const formData = await request.formData();
 
@@ -57,7 +49,7 @@ export async function action({ request, params }: Route.ActionArgs) {
   }
 
   const order = new Order({
-    buyer: new mongoose.Types.ObjectId(userId?._id),
+    buyer: userId ? new mongoose.Types.ObjectId(userId._id) : null,
     products: [
       {
         product: new mongoose.Types.ObjectId(productId),
@@ -92,13 +84,12 @@ export async function action({ request, params }: Route.ActionArgs) {
   try {
     await order.save();
 
-    //updating the isSold and pushing sales details
-    //into the product model so the artist can see who bought his art
+    // Update the product status
     await Product.findByIdAndUpdate(productId, {
       isSold: true,
       $push: {
         saleDetails: {
-          buyer: userId?._id,
+          buyer: userId ? new mongoose.Types.ObjectId(userId._id) : null,
           orderId: order._id,
           soldAt: new Date(),
           priceSoldAt: priceAtPurchase,
@@ -107,17 +98,18 @@ export async function action({ request, params }: Route.ActionArgs) {
       },
     });
 
-    //updating the purchased items so that the buyer
-    //can have a record of his art collections
-    await User.findByIdAndUpdate(userId?._id, {
-      $push: {
-        purchasedItems: {
-          productId: productId,
-          purchasedAt: new Date(),
-          licenseType: "personal",
+    // Update user's purchased items if logged in
+    if (userId) {
+      await User.findByIdAndUpdate(userId._id, {
+        $push: {
+          purchasedItems: {
+            productId: productId,
+            purchasedAt: new Date(),
+            licenseType: "personal",
+          },
         },
-      },
-    });
+      });
+    }
 
     return redirect("/order/success");
   } catch (error) {
@@ -127,11 +119,6 @@ export async function action({ request, params }: Route.ActionArgs) {
 }
 
 export async function loader({ params, request }: Route.LoaderArgs) {
-  const session = await getSession(request);
-
-  if (!session) {
-    return redirect("/login");
-  }
   const id = params.artworkId;
 
   try {

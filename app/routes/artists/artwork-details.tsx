@@ -13,6 +13,7 @@ import { SavedItems } from "../home";
 import { DownArrowheadIcon } from "public/icons/down-arrowhead";
 import { ROLE_LIST } from "~/server/configs/role";
 import { redirect } from "react-router";
+import GuestCheckoutForm from "~/components/guest-checkout-form";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
   await ConnectToDatabase();

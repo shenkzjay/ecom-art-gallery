@@ -251,12 +251,12 @@ export default function Home({ loaderData }: Route.ComponentProps) {
                 className="break-inside-avoid mb-8 bg-white rounded-lg overflow-hidden"
               >
                 <Link to={`/artwork/${product.id}`}>
-                  <div className="mb-2">
+                  <div className="mb-2 relative overflow-hidden group">
                     <img
                       src={product.product_image[0]}
                       width={300}
                       height={300}
-                      className="w-full h-auto object-cover"
+                      className=" w-full h-auto object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
                     />
                   </div>
                 </Link>

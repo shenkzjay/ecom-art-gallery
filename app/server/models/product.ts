@@ -101,6 +101,7 @@ const ProductSchema = new mongoose.Schema({
         buyer: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
+          required: false, // Allow guest orders
         },
         orderId: {
           type: mongoose.Schema.Types.ObjectId,

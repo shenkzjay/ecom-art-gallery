@@ -19,6 +19,7 @@ export default [
     route("artist", "routes/artists/artwork.tsx"),
     route("artist/upload-artwork", "routes/artists/upload-artwork.tsx"),
     route("collection", "routes/user/collection.tsx"),
+    route("guest-checkout", "routes/guest-checkout.tsx"),
   ]),
 
   route("login", "routes/auth/login.tsx"),
