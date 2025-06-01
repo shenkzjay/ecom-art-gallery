@@ -61,8 +61,6 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
 
   const [isImageselected, setIsImageSelected] = useState<string>();
 
-  console.log({ singleProducts });
-
   const navigate = useNavigate();
 
   const handleSelectImage = (image: string) => {
@@ -71,7 +69,7 @@ export default function ArtworkDetails({ loaderData }: Route.ComponentProps) {
 
   return (
     <section className="bg-[#f7f7f7]  h-[650px]">
-      <div className="md:container md:mx-auto mx-6 pb-20">
+      <div className="md:container md:mx-auto mx-6 pb-20 pt-6">
         <div className="flex">
           <button
             onClick={() => navigate(-1)}
