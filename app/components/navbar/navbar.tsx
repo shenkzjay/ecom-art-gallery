@@ -369,13 +369,13 @@ export function Navbar({ user }: NavbarProps) {
               >
                 Sign up
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="/guest-checkout"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 onClick={() => setIsOpen(false)}
               >
                 Guest Checkout
-              </NavLink>
+              </NavLink> */}
             </div>
           )}
         </div>
