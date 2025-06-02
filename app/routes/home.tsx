@@ -145,9 +145,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <figure className="grid gap-6 grid-rows-subgrid row-span-3">
             <figcaption className="flex justify-between items-center mb">
               <h3 className="text-2xl">Emerging art</h3>
-              <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
+              {/* <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
                 <UpArrowheadIcon />
-              </span>
+              </span> */}
             </figcaption>
 
             <img
@@ -169,9 +169,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <figure className="grid grid-rows-subgrid row-span-3 gap-6">
             <figcaption className="flex justify-between items-center mb">
               <h3 className="text-2xl">Contemporary art</h3>
-              <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
+              {/* <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
                 <UpArrowheadIcon />
-              </span>
+              </span> */}
             </figcaption>
 
             <img
@@ -192,9 +192,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
           <figure className="grid gap-6 grid-rows-subgrid row-span-3">
             <figcaption className="flex justify-between items-center mb">
               <h3 className="text-2xl">Modern art</h3>
-              <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
+              {/* <span className="block w-8 h-8 [transform:rotate(90deg)] p-1.5 bg-slate-200 text-white rounded-full">
                 <UpArrowheadIcon />
-              </span>
+              </span> */}
             </figcaption>
 
             <img
