@@ -10,6 +10,7 @@ import type { OrderType } from "~/server/models/order";
 import mongoose from "mongoose";
 import Product from "~/server/models/product";
 import User from "~/server/models/user";
+import { ROLE_LIST } from "~/server/configs/role";
 
 export async function action({ request, params }: Route.ActionArgs) {
   const session = await getSession(request);
@@ -120,6 +121,12 @@ export async function action({ request, params }: Route.ActionArgs) {
 
 export async function loader({ params, request }: Route.LoaderArgs) {
   const id = params.artworkId;
+
+  // const session = await getSession(request);
+  // if (!session) {
+
+  //   return redirect("/login");
+  // }
 
   try {
     const getSingleProduct = await getProductById(id);

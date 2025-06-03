@@ -254,7 +254,7 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
                     </td>
                     <td className="p-4">
                       <div>
-                        <button>view</button>
+                        <button></button>
                       </div>
                     </td>
                   </tr>
@@ -305,7 +305,7 @@ export default function artwork({ loaderData }: Route.ComponentProps) {
                     </td>
                     <td className="p-4">
                       <div>
-                        <button>view</button>
+                        <button></button>
                       </div>
                     </td>
                   </tr>
